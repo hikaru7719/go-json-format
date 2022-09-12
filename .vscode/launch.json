@@ -1,0 +1,14 @@
+{
+    "version": "1.0.0",
+    "configurations": [
+        {
+            "name": "JSON sample",
+            "type": "antlr-debug",
+            "request": "launch",
+            "input": "test.json",
+            "grammar": "parser/JSON.g4",
+            "printParseTree": true,
+            "visualParseTree": true
+        },
+    ]
+}

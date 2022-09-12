@@ -1,0 +1,14 @@
+{
+    "antlr4.generation": {
+        "mode": "external",
+        "language": "Go",
+        "listeners": false,
+        "visitors": true,
+        "outputDir": ".",
+        "alternativeJar": "antlr-4.11.1-complete.jar",
+    },
+    "antlr4.debug": {
+        "visualParseTreeHorizontal": true,
+        "visualParseTreeClustered": false
+    },
+}
