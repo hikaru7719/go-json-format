@@ -1,9 +1,7 @@
 grammar JSON;
 
-
 json: value;
 value: object | array | string | int | TRUE | FALSE | NULL;
-
 object: LEFT_BRACKET RIGHT_BRACKET | LEFT_BRACKET RIGHT_BRACKET;
 members: member | member COMMA member;
 member: string COLORN value;
