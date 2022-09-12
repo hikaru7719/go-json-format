@@ -1,14 +1,14 @@
 grammar JSON;
 
 json: value;
-value: object | array | string | int | TRUE | FALSE | NULL;
-object: LEFT_BRACKET RIGHT_BRACKET | LEFT_BRACKET RIGHT_BRACKET;
+value: object | array | str | num | TRUE | FALSE | NULL;
+object: LEFT_BRACKET RIGHT_BRACKET | LEFT_BRACKET members RIGHT_BRACKET;
 members: member | member COMMA member;
-member: string COLORN value;
+member: str COLORN value;
 array:  LEFT_SQUARE_BRACKET RIGHT_SQUARE_BRACKET | LEFT_SQUARE_BRACKET elements RIGHT_SQUARE_BRACKET;
 elements: value | value COMMA value; 
-string: DOUBLE_QUOTE LETTER DOUBLE_QUOTE;
-int: NUMBER | MINUS NUMBER;
+str: DOUBLE_QUOTE LETTER DOUBLE_QUOTE | DOUBLE_QUOTE DOUBLE_QUOTE;
+num: NUMBER | MINUS NUMBER;
 
 LEFT_BRACKET: '{';
 RIGHT_BRACKET: '}';
@@ -21,6 +21,6 @@ FALSE: 'false';
 NULL: 'null';
 DOUBLE_QUOTE: '"';
 WHITE_SPACE : [ \r\t\n]+ -> skip;
-NUMBER: [0-9]+;
+LETTER: [a-zA-Z0-9]+;
 MINUS: '-'; 
-LETTER: [a-Z]*;
+NUMBER: [0-9]+;
