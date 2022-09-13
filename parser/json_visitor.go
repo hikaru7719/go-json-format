@@ -34,4 +34,10 @@ type JSONVisitor interface {
 
 	// Visit a parse tree produced by JSONParser#num.
 	VisitNum(ctx *NumContext) interface{}
+
+	// Visit a parse tree produced by JSONParser#boolean.
+	VisitBoolean(ctx *BooleanContext) interface{}
+
+	// Visit a parse tree produced by JSONParser#null.
+	VisitNull(ctx *NullContext) interface{}
 }
