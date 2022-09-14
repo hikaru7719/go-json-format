@@ -26,7 +26,7 @@ func main() {
 var _ parser.JSONVisitor = &TreeVisitor{}
 
 var (
-	defaultIndent = "  "
+	defaultIndent = "    "
 )
 
 type TreeVisitor struct {
@@ -40,7 +40,7 @@ func (visitor *TreeVisitor) IncrementDepth() {
 }
 
 func (visitor *TreeVisitor) DecrementDepth() {
-	visitor.depth += 1
+	visitor.depth -= 1
 }
 
 func (visitor *TreeVisitor) PrintIndent() string {
@@ -53,6 +53,7 @@ func (visitor *TreeVisitor) String() string {
 
 func (visitor *TreeVisitor) VisitJson(ctx *parser.JsonContext) interface{} {
 	ctx.Value().Accept(visitor)
+	visitor.builer.WriteString("\n")
 	return nil
 }
 
@@ -73,11 +74,11 @@ func (visitor *TreeVisitor) VisitValue(ctx *parser.ValueContext) interface{} {
 		t.Accept(visitor)
 	}
 
-	if t := ctx.Boolean(); t != nil {
+	if t := ctx.Bool_(); t != nil {
 		t.Accept(visitor)
 	}
 
-	if t := ctx.Null(); t != nil {
+	if t := ctx.Nil_(); t != nil {
 		t.Accept(visitor)
 	}
 	return nil
@@ -90,19 +91,18 @@ func (visitor *TreeVisitor) VisitObject(ctx *parser.ObjectContext) interface{} {
 	ctx.Members().Accept(visitor)
 
 	visitor.DecrementDepth()
-	visitor.builer.WriteString(fmt.Sprintf("%s%s\n", visitor.PrintIndent(), ctx.LEFT_BRACKET().GetText()))
+	visitor.builer.WriteString(fmt.Sprintf("%s%s", visitor.PrintIndent(), ctx.RIGHT_BRACKET().GetText()))
 	return nil
 }
 
 func (visitor *TreeVisitor) VisitMembers(ctx *parser.MembersContext) interface{} {
+	last := len(ctx.AllMember()) - 1
 	for i, m := range ctx.AllMember() {
 		m.Accept(visitor)
-
-		if i == len(ctx.AllMember())-1 {
-			visitor.builer.WriteString("\n")
-		} else {
-			visitor.builer.WriteString(fmt.Sprintf("%s\n", ctx.COMMA().GetText()))
+		if i < last {
+			visitor.builer.WriteString(ctx.COMMA().GetText())
 		}
+		visitor.builer.WriteString("\n")
 	}
 	return nil
 }
@@ -140,12 +140,12 @@ func (visitor *TreeVisitor) VisitNum(ctx *parser.NumContext) interface{} {
 	return nil
 }
 
-func (visitor *TreeVisitor) VisitBoolean(ctx *parser.BooleanContext) interface{} {
-	visitor.builer.WriteString(fmt.Sprintf("%s", ctx.GetText()))
+func (visitor *TreeVisitor) VisitBoolean(ctx *parser.BoolContext) interface{} {
+	visitor.builer.WriteString(ctx.GetText())
 	return nil
 }
 
-func (visitor *TreeVisitor) VisitNull(ctx *parser.NullContext) interface{} {
-	visitor.builer.WriteString(fmt.Sprintf("%s", ctx.GetText()))
+func (visitor *TreeVisitor) VisitNull(ctx *parser.NilContext) interface{} {
+	visitor.builer.WriteString(ctx.GetText())
 	return nil
 }

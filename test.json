@@ -1,3 +1,9 @@
 {
-    "test": "1"
+    "test": "1",
+    "hoge": {
+        "fuga": {
+            "hogefuga": 2
+        }
+    },
+    "null": null
 }

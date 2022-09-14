@@ -43,10 +43,10 @@ func (v *BaseJSONVisitor) VisitNum(ctx *NumContext) interface{} {
 	return v.VisitChildren(ctx)
 }
 
-func (v *BaseJSONVisitor) VisitBoolean(ctx *BooleanContext) interface{} {
+func (v *BaseJSONVisitor) VisitBool(ctx *BoolContext) interface{} {
 	return v.VisitChildren(ctx)
 }
 
-func (v *BaseJSONVisitor) VisitNull(ctx *NullContext) interface{} {
+func (v *BaseJSONVisitor) VisitNil(ctx *NilContext) interface{} {
 	return v.VisitChildren(ctx)
 }

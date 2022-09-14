@@ -33,51 +33,48 @@ func jsonParserInit() {
 	staticData := &jsonParserStaticData
 	staticData.literalNames = []string{
 		"", "'{'", "'}'", "'['", "']'", "','", "':'", "'true'", "'false'", "'null'",
-		"'\"'", "", "", "'-'",
+		"'\"'",
 	}
 	staticData.symbolicNames = []string{
 		"", "LEFT_BRACKET", "RIGHT_BRACKET", "LEFT_SQUARE_BRACKET", "RIGHT_SQUARE_BRACKET",
 		"COMMA", "COLORN", "TRUE", "FALSE", "NULL", "DOUBLE_QUOTE", "WHITE_SPACE",
-		"LETTER", "MINUS", "NUMBER",
+		"STRING", "INTEGER",
 	}
 	staticData.ruleNames = []string{
 		"json", "value", "object", "members", "member", "array", "elements",
-		"str", "num", "boolean", "null",
+		"str", "num", "bool", "nil",
 	}
 	staticData.predictionContextCache = antlr.NewPredictionContextCache()
 	staticData.serializedATN = []int32{
-		4, 1, 14, 83, 2, 0, 7, 0, 2, 1, 7, 1, 2, 2, 7, 2, 2, 3, 7, 3, 2, 4, 7,
+		4, 1, 13, 75, 2, 0, 7, 0, 2, 1, 7, 1, 2, 2, 7, 2, 2, 3, 7, 3, 2, 4, 7,
 		4, 2, 5, 7, 5, 2, 6, 7, 6, 2, 7, 7, 7, 2, 8, 7, 8, 2, 9, 7, 9, 2, 10, 7,
 		10, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3, 1, 31, 8, 1, 1,
 		2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 3, 2, 39, 8, 2, 1, 3, 1, 3, 1, 3, 1, 3,
 		1, 3, 3, 3, 46, 8, 3, 1, 4, 1, 4, 1, 4, 1, 4, 1, 5, 1, 5, 1, 5, 1, 5, 1,
 		5, 1, 5, 3, 5, 58, 8, 5, 1, 6, 1, 6, 1, 6, 1, 6, 1, 6, 3, 6, 65, 8, 6,
-		1, 7, 1, 7, 1, 7, 1, 7, 1, 7, 3, 7, 72, 8, 7, 1, 8, 1, 8, 1, 8, 3, 8, 77,
-		8, 8, 1, 9, 1, 9, 1, 10, 1, 10, 1, 10, 0, 0, 11, 0, 2, 4, 6, 8, 10, 12,
-		14, 16, 18, 20, 0, 1, 1, 0, 7, 8, 82, 0, 22, 1, 0, 0, 0, 2, 30, 1, 0, 0,
-		0, 4, 38, 1, 0, 0, 0, 6, 45, 1, 0, 0, 0, 8, 47, 1, 0, 0, 0, 10, 57, 1,
-		0, 0, 0, 12, 64, 1, 0, 0, 0, 14, 71, 1, 0, 0, 0, 16, 76, 1, 0, 0, 0, 18,
-		78, 1, 0, 0, 0, 20, 80, 1, 0, 0, 0, 22, 23, 3, 2, 1, 0, 23, 1, 1, 0, 0,
-		0, 24, 31, 3, 4, 2, 0, 25, 31, 3, 10, 5, 0, 26, 31, 3, 14, 7, 0, 27, 31,
-		3, 16, 8, 0, 28, 31, 3, 18, 9, 0, 29, 31, 3, 20, 10, 0, 30, 24, 1, 0, 0,
-		0, 30, 25, 1, 0, 0, 0, 30, 26, 1, 0, 0, 0, 30, 27, 1, 0, 0, 0, 30, 28,
-		1, 0, 0, 0, 30, 29, 1, 0, 0, 0, 31, 3, 1, 0, 0, 0, 32, 33, 5, 1, 0, 0,
-		33, 39, 5, 2, 0, 0, 34, 35, 5, 1, 0, 0, 35, 36, 3, 6, 3, 0, 36, 37, 5,
-		2, 0, 0, 37, 39, 1, 0, 0, 0, 38, 32, 1, 0, 0, 0, 38, 34, 1, 0, 0, 0, 39,
-		5, 1, 0, 0, 0, 40, 46, 3, 8, 4, 0, 41, 42, 3, 8, 4, 0, 42, 43, 5, 5, 0,
-		0, 43, 44, 3, 8, 4, 0, 44, 46, 1, 0, 0, 0, 45, 40, 1, 0, 0, 0, 45, 41,
-		1, 0, 0, 0, 46, 7, 1, 0, 0, 0, 47, 48, 3, 14, 7, 0, 48, 49, 5, 6, 0, 0,
-		49, 50, 3, 2, 1, 0, 50, 9, 1, 0, 0, 0, 51, 52, 5, 3, 0, 0, 52, 58, 5, 4,
-		0, 0, 53, 54, 5, 3, 0, 0, 54, 55, 3, 12, 6, 0, 55, 56, 5, 4, 0, 0, 56,
-		58, 1, 0, 0, 0, 57, 51, 1, 0, 0, 0, 57, 53, 1, 0, 0, 0, 58, 11, 1, 0, 0,
-		0, 59, 65, 3, 2, 1, 0, 60, 61, 3, 2, 1, 0, 61, 62, 5, 5, 0, 0, 62, 63,
-		3, 2, 1, 0, 63, 65, 1, 0, 0, 0, 64, 59, 1, 0, 0, 0, 64, 60, 1, 0, 0, 0,
-		65, 13, 1, 0, 0, 0, 66, 67, 5, 10, 0, 0, 67, 68, 5, 12, 0, 0, 68, 72, 5,
-		10, 0, 0, 69, 70, 5, 10, 0, 0, 70, 72, 5, 10, 0, 0, 71, 66, 1, 0, 0, 0,
-		71, 69, 1, 0, 0, 0, 72, 15, 1, 0, 0, 0, 73, 77, 5, 14, 0, 0, 74, 75, 5,
-		13, 0, 0, 75, 77, 5, 14, 0, 0, 76, 73, 1, 0, 0, 0, 76, 74, 1, 0, 0, 0,
-		77, 17, 1, 0, 0, 0, 78, 79, 7, 0, 0, 0, 79, 19, 1, 0, 0, 0, 80, 81, 5,
-		9, 0, 0, 81, 21, 1, 0, 0, 0, 7, 30, 38, 45, 57, 64, 71, 76,
+		1, 7, 1, 7, 1, 8, 1, 8, 1, 9, 1, 9, 1, 10, 1, 10, 1, 10, 0, 0, 11, 0, 2,
+		4, 6, 8, 10, 12, 14, 16, 18, 20, 0, 1, 1, 0, 7, 8, 72, 0, 22, 1, 0, 0,
+		0, 2, 30, 1, 0, 0, 0, 4, 38, 1, 0, 0, 0, 6, 45, 1, 0, 0, 0, 8, 47, 1, 0,
+		0, 0, 10, 57, 1, 0, 0, 0, 12, 64, 1, 0, 0, 0, 14, 66, 1, 0, 0, 0, 16, 68,
+		1, 0, 0, 0, 18, 70, 1, 0, 0, 0, 20, 72, 1, 0, 0, 0, 22, 23, 3, 2, 1, 0,
+		23, 1, 1, 0, 0, 0, 24, 31, 3, 4, 2, 0, 25, 31, 3, 10, 5, 0, 26, 31, 3,
+		16, 8, 0, 27, 31, 3, 14, 7, 0, 28, 31, 3, 18, 9, 0, 29, 31, 3, 20, 10,
+		0, 30, 24, 1, 0, 0, 0, 30, 25, 1, 0, 0, 0, 30, 26, 1, 0, 0, 0, 30, 27,
+		1, 0, 0, 0, 30, 28, 1, 0, 0, 0, 30, 29, 1, 0, 0, 0, 31, 3, 1, 0, 0, 0,
+		32, 33, 5, 1, 0, 0, 33, 39, 5, 2, 0, 0, 34, 35, 5, 1, 0, 0, 35, 36, 3,
+		6, 3, 0, 36, 37, 5, 2, 0, 0, 37, 39, 1, 0, 0, 0, 38, 32, 1, 0, 0, 0, 38,
+		34, 1, 0, 0, 0, 39, 5, 1, 0, 0, 0, 40, 46, 3, 8, 4, 0, 41, 42, 3, 8, 4,
+		0, 42, 43, 5, 5, 0, 0, 43, 44, 3, 8, 4, 0, 44, 46, 1, 0, 0, 0, 45, 40,
+		1, 0, 0, 0, 45, 41, 1, 0, 0, 0, 46, 7, 1, 0, 0, 0, 47, 48, 3, 14, 7, 0,
+		48, 49, 5, 6, 0, 0, 49, 50, 3, 2, 1, 0, 50, 9, 1, 0, 0, 0, 51, 52, 5, 3,
+		0, 0, 52, 58, 5, 4, 0, 0, 53, 54, 5, 3, 0, 0, 54, 55, 3, 12, 6, 0, 55,
+		56, 5, 4, 0, 0, 56, 58, 1, 0, 0, 0, 57, 51, 1, 0, 0, 0, 57, 53, 1, 0, 0,
+		0, 58, 11, 1, 0, 0, 0, 59, 65, 3, 2, 1, 0, 60, 61, 3, 2, 1, 0, 61, 62,
+		5, 5, 0, 0, 62, 63, 3, 2, 1, 0, 63, 65, 1, 0, 0, 0, 64, 59, 1, 0, 0, 0,
+		64, 60, 1, 0, 0, 0, 65, 13, 1, 0, 0, 0, 66, 67, 5, 12, 0, 0, 67, 15, 1,
+		0, 0, 0, 68, 69, 5, 13, 0, 0, 69, 17, 1, 0, 0, 0, 70, 71, 7, 0, 0, 0, 71,
+		19, 1, 0, 0, 0, 72, 73, 5, 9, 0, 0, 73, 21, 1, 0, 0, 0, 5, 30, 38, 45,
+		57, 64,
 	}
 	deserializer := antlr.NewATNDeserializer(nil)
 	staticData.atn = deserializer.Deserialize(staticData.serializedATN)
@@ -127,9 +124,8 @@ const (
 	JSONParserNULL                 = 9
 	JSONParserDOUBLE_QUOTE         = 10
 	JSONParserWHITE_SPACE          = 11
-	JSONParserLETTER               = 12
-	JSONParserMINUS                = 13
-	JSONParserNUMBER               = 14
+	JSONParserSTRING               = 12
+	JSONParserINTEGER              = 13
 )
 
 // JSONParser rules.
@@ -143,8 +139,8 @@ const (
 	JSONParserRULE_elements = 6
 	JSONParserRULE_str      = 7
 	JSONParserRULE_num      = 8
-	JSONParserRULE_boolean  = 9
-	JSONParserRULE_null     = 10
+	JSONParserRULE_bool     = 9
+	JSONParserRULE_nil      = 10
 )
 
 // IJsonContext is an interface to support dynamic dispatch.
@@ -321,22 +317,6 @@ func (s *ValueContext) Array() IArrayContext {
 	return t.(IArrayContext)
 }
 
-func (s *ValueContext) Str() IStrContext {
-	var t antlr.RuleContext
-	for _, ctx := range s.GetChildren() {
-		if _, ok := ctx.(IStrContext); ok {
-			t = ctx.(antlr.RuleContext)
-			break
-		}
-	}
-
-	if t == nil {
-		return nil
-	}
-
-	return t.(IStrContext)
-}
-
 func (s *ValueContext) Num() INumContext {
 	var t antlr.RuleContext
 	for _, ctx := range s.GetChildren() {
@@ -353,10 +333,10 @@ func (s *ValueContext) Num() INumContext {
 	return t.(INumContext)
 }
 
-func (s *ValueContext) Boolean() IBooleanContext {
+func (s *ValueContext) Str() IStrContext {
 	var t antlr.RuleContext
 	for _, ctx := range s.GetChildren() {
-		if _, ok := ctx.(IBooleanContext); ok {
+		if _, ok := ctx.(IStrContext); ok {
 			t = ctx.(antlr.RuleContext)
 			break
 		}
@@ -366,13 +346,13 @@ func (s *ValueContext) Boolean() IBooleanContext {
 		return nil
 	}
 
-	return t.(IBooleanContext)
+	return t.(IStrContext)
 }
 
-func (s *ValueContext) Null() INullContext {
+func (s *ValueContext) Bool_() IBoolContext {
 	var t antlr.RuleContext
 	for _, ctx := range s.GetChildren() {
-		if _, ok := ctx.(INullContext); ok {
+		if _, ok := ctx.(IBoolContext); ok {
 			t = ctx.(antlr.RuleContext)
 			break
 		}
@@ -382,7 +362,23 @@ func (s *ValueContext) Null() INullContext {
 		return nil
 	}
 
-	return t.(INullContext)
+	return t.(IBoolContext)
+}
+
+func (s *ValueContext) Nil_() INilContext {
+	var t antlr.RuleContext
+	for _, ctx := range s.GetChildren() {
+		if _, ok := ctx.(INilContext); ok {
+			t = ctx.(antlr.RuleContext)
+			break
+		}
+	}
+
+	if t == nil {
+		return nil
+	}
+
+	return t.(INilContext)
 }
 
 func (s *ValueContext) GetRuleContext() antlr.RuleContext {
@@ -444,32 +440,32 @@ func (p *JSONParser) Value() (localctx IValueContext) {
 			p.Array()
 		}
 
-	case JSONParserDOUBLE_QUOTE:
+	case JSONParserINTEGER:
 		p.EnterOuterAlt(localctx, 3)
 		{
 			p.SetState(26)
-			p.Str()
+			p.Num()
 		}
 
-	case JSONParserMINUS, JSONParserNUMBER:
+	case JSONParserSTRING:
 		p.EnterOuterAlt(localctx, 4)
 		{
 			p.SetState(27)
-			p.Num()
+			p.Str()
 		}
 
 	case JSONParserTRUE, JSONParserFALSE:
 		p.EnterOuterAlt(localctx, 5)
 		{
 			p.SetState(28)
-			p.Boolean()
+			p.Bool_()
 		}
 
 	case JSONParserNULL:
 		p.EnterOuterAlt(localctx, 6)
 		{
 			p.SetState(29)
-			p.Null()
+			p.Nil_()
 		}
 
 	default:
@@ -1231,16 +1227,8 @@ func NewStrContext(parser antlr.Parser, parent antlr.ParserRuleContext, invoking
 
 func (s *StrContext) GetParser() antlr.Parser { return s.parser }
 
-func (s *StrContext) AllDOUBLE_QUOTE() []antlr.TerminalNode {
-	return s.GetTokens(JSONParserDOUBLE_QUOTE)
-}
-
-func (s *StrContext) DOUBLE_QUOTE(i int) antlr.TerminalNode {
-	return s.GetToken(JSONParserDOUBLE_QUOTE, i)
-}
-
-func (s *StrContext) LETTER() antlr.TerminalNode {
-	return s.GetToken(JSONParserLETTER, 0)
+func (s *StrContext) STRING() antlr.TerminalNode {
+	return s.GetToken(JSONParserSTRING, 0)
 }
 
 func (s *StrContext) GetRuleContext() antlr.RuleContext {
@@ -1284,35 +1272,10 @@ func (p *JSONParser) Str() (localctx IStrContext) {
 		}
 	}()
 
-	p.SetState(71)
-	p.GetErrorHandler().Sync(p)
-	switch p.GetInterpreter().AdaptivePredict(p.GetTokenStream(), 5, p.GetParserRuleContext()) {
-	case 1:
-		p.EnterOuterAlt(localctx, 1)
-		{
-			p.SetState(66)
-			p.Match(JSONParserDOUBLE_QUOTE)
-		}
-		{
-			p.SetState(67)
-			p.Match(JSONParserLETTER)
-		}
-		{
-			p.SetState(68)
-			p.Match(JSONParserDOUBLE_QUOTE)
-		}
-
-	case 2:
-		p.EnterOuterAlt(localctx, 2)
-		{
-			p.SetState(69)
-			p.Match(JSONParserDOUBLE_QUOTE)
-		}
-		{
-			p.SetState(70)
-			p.Match(JSONParserDOUBLE_QUOTE)
-		}
-
+	p.EnterOuterAlt(localctx, 1)
+	{
+		p.SetState(66)
+		p.Match(JSONParserSTRING)
 	}
 
 	return localctx
@@ -1356,12 +1319,8 @@ func NewNumContext(parser antlr.Parser, parent antlr.ParserRuleContext, invoking
 
 func (s *NumContext) GetParser() antlr.Parser { return s.parser }
 
-func (s *NumContext) NUMBER() antlr.TerminalNode {
-	return s.GetToken(JSONParserNUMBER, 0)
-}
-
-func (s *NumContext) MINUS() antlr.TerminalNode {
-	return s.GetToken(JSONParserMINUS, 0)
+func (s *NumContext) INTEGER() antlr.TerminalNode {
+	return s.GetToken(JSONParserINTEGER, 0)
 }
 
 func (s *NumContext) GetRuleContext() antlr.RuleContext {
@@ -1405,105 +1364,85 @@ func (p *JSONParser) Num() (localctx INumContext) {
 		}
 	}()
 
-	p.SetState(76)
-	p.GetErrorHandler().Sync(p)
-
-	switch p.GetTokenStream().LA(1) {
-	case JSONParserNUMBER:
-		p.EnterOuterAlt(localctx, 1)
-		{
-			p.SetState(73)
-			p.Match(JSONParserNUMBER)
-		}
-
-	case JSONParserMINUS:
-		p.EnterOuterAlt(localctx, 2)
-		{
-			p.SetState(74)
-			p.Match(JSONParserMINUS)
-		}
-		{
-			p.SetState(75)
-			p.Match(JSONParserNUMBER)
-		}
-
-	default:
-		panic(antlr.NewNoViableAltException(p, nil, nil, nil, nil, nil))
+	p.EnterOuterAlt(localctx, 1)
+	{
+		p.SetState(68)
+		p.Match(JSONParserINTEGER)
 	}
 
 	return localctx
 }
 
-// IBooleanContext is an interface to support dynamic dispatch.
-type IBooleanContext interface {
+// IBoolContext is an interface to support dynamic dispatch.
+type IBoolContext interface {
 	antlr.ParserRuleContext
 
 	// GetParser returns the parser.
 	GetParser() antlr.Parser
 
-	// IsBooleanContext differentiates from other interfaces.
-	IsBooleanContext()
+	// IsBoolContext differentiates from other interfaces.
+	IsBoolContext()
 }
 
-type BooleanContext struct {
+type BoolContext struct {
 	*antlr.BaseParserRuleContext
 	parser antlr.Parser
 }
 
-func NewEmptyBooleanContext() *BooleanContext {
-	var p = new(BooleanContext)
+func NewEmptyBoolContext() *BoolContext {
+	var p = new(BoolContext)
 	p.BaseParserRuleContext = antlr.NewBaseParserRuleContext(nil, -1)
-	p.RuleIndex = JSONParserRULE_boolean
+	p.RuleIndex = JSONParserRULE_bool
 	return p
 }
 
-func (*BooleanContext) IsBooleanContext() {}
+func (*BoolContext) IsBoolContext() {}
 
-func NewBooleanContext(parser antlr.Parser, parent antlr.ParserRuleContext, invokingState int) *BooleanContext {
-	var p = new(BooleanContext)
+func NewBoolContext(parser antlr.Parser, parent antlr.ParserRuleContext, invokingState int) *BoolContext {
+	var p = new(BoolContext)
 
 	p.BaseParserRuleContext = antlr.NewBaseParserRuleContext(parent, invokingState)
 
 	p.parser = parser
-	p.RuleIndex = JSONParserRULE_boolean
+	p.RuleIndex = JSONParserRULE_bool
 
 	return p
 }
 
-func (s *BooleanContext) GetParser() antlr.Parser { return s.parser }
+func (s *BoolContext) GetParser() antlr.Parser { return s.parser }
 
-func (s *BooleanContext) TRUE() antlr.TerminalNode {
+func (s *BoolContext) TRUE() antlr.TerminalNode {
 	return s.GetToken(JSONParserTRUE, 0)
 }
 
-func (s *BooleanContext) FALSE() antlr.TerminalNode {
+func (s *BoolContext) FALSE() antlr.TerminalNode {
 	return s.GetToken(JSONParserFALSE, 0)
 }
 
-func (s *BooleanContext) GetRuleContext() antlr.RuleContext {
+func (s *BoolContext) GetRuleContext() antlr.RuleContext {
 	return s
 }
 
-func (s *BooleanContext) ToStringTree(ruleNames []string, recog antlr.Recognizer) string {
+func (s *BoolContext) ToStringTree(ruleNames []string, recog antlr.Recognizer) string {
 	return antlr.TreesStringTree(s, ruleNames, recog)
 }
 
-func (s *BooleanContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+func (s *BoolContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
 	switch t := visitor.(type) {
 	case JSONVisitor:
-		return t.VisitBoolean(s)
+		return t.VisitBool(s)
 
 	default:
 		return t.VisitChildren(s)
 	}
 }
 
-func (p *JSONParser) Boolean() (localctx IBooleanContext) {
+func (p *JSONParser) Bool_() (localctx IBoolContext) {
 	this := p
 	_ = this
 
-	localctx = NewBooleanContext(p, p.GetParserRuleContext(), p.GetState())
-	p.EnterRule(localctx, 18, JSONParserRULE_boolean)
+	localctx = NewBoolContext(p, p.GetParserRuleContext(), p.GetState())
+	p.EnterRule(localctx, 18, JSONParserRULE_bool)
 	var _la int
 
 	defer func() {
@@ -1524,7 +1463,7 @@ func (p *JSONParser) Boolean() (localctx IBooleanContext) {
 
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(78)
+		p.SetState(70)
 		_la = p.GetTokenStream().LA(1)
 
 		if !(_la == JSONParserTRUE || _la == JSONParserFALSE) {
@@ -1538,72 +1477,72 @@ func (p *JSONParser) Boolean() (localctx IBooleanContext) {
 	return localctx
 }
 
-// INullContext is an interface to support dynamic dispatch.
-type INullContext interface {
+// INilContext is an interface to support dynamic dispatch.
+type INilContext interface {
 	antlr.ParserRuleContext
 
 	// GetParser returns the parser.
 	GetParser() antlr.Parser
 
-	// IsNullContext differentiates from other interfaces.
-	IsNullContext()
+	// IsNilContext differentiates from other interfaces.
+	IsNilContext()
 }
 
-type NullContext struct {
+type NilContext struct {
 	*antlr.BaseParserRuleContext
 	parser antlr.Parser
 }
 
-func NewEmptyNullContext() *NullContext {
-	var p = new(NullContext)
+func NewEmptyNilContext() *NilContext {
+	var p = new(NilContext)
 	p.BaseParserRuleContext = antlr.NewBaseParserRuleContext(nil, -1)
-	p.RuleIndex = JSONParserRULE_null
+	p.RuleIndex = JSONParserRULE_nil
 	return p
 }
 
-func (*NullContext) IsNullContext() {}
+func (*NilContext) IsNilContext() {}
 
-func NewNullContext(parser antlr.Parser, parent antlr.ParserRuleContext, invokingState int) *NullContext {
-	var p = new(NullContext)
+func NewNilContext(parser antlr.Parser, parent antlr.ParserRuleContext, invokingState int) *NilContext {
+	var p = new(NilContext)
 
 	p.BaseParserRuleContext = antlr.NewBaseParserRuleContext(parent, invokingState)
 
 	p.parser = parser
-	p.RuleIndex = JSONParserRULE_null
+	p.RuleIndex = JSONParserRULE_nil
 
 	return p
 }
 
-func (s *NullContext) GetParser() antlr.Parser { return s.parser }
+func (s *NilContext) GetParser() antlr.Parser { return s.parser }
 
-func (s *NullContext) NULL() antlr.TerminalNode {
+func (s *NilContext) NULL() antlr.TerminalNode {
 	return s.GetToken(JSONParserNULL, 0)
 }
 
-func (s *NullContext) GetRuleContext() antlr.RuleContext {
+func (s *NilContext) GetRuleContext() antlr.RuleContext {
 	return s
 }
 
-func (s *NullContext) ToStringTree(ruleNames []string, recog antlr.Recognizer) string {
+func (s *NilContext) ToStringTree(ruleNames []string, recog antlr.Recognizer) string {
 	return antlr.TreesStringTree(s, ruleNames, recog)
 }
 
-func (s *NullContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+func (s *NilContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
 	switch t := visitor.(type) {
 	case JSONVisitor:
-		return t.VisitNull(s)
+		return t.VisitNil(s)
 
 	default:
 		return t.VisitChildren(s)
 	}
 }
 
-func (p *JSONParser) Null() (localctx INullContext) {
+func (p *JSONParser) Nil_() (localctx INilContext) {
 	this := p
 	_ = this
 
-	localctx = NewNullContext(p, p.GetParserRuleContext(), p.GetState())
-	p.EnterRule(localctx, 20, JSONParserRULE_null)
+	localctx = NewNilContext(p, p.GetParserRuleContext(), p.GetState())
+	p.EnterRule(localctx, 20, JSONParserRULE_nil)
 
 	defer func() {
 		p.ExitRule()
@@ -1623,7 +1562,7 @@ func (p *JSONParser) Null() (localctx INullContext) {
 
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(80)
+		p.SetState(72)
 		p.Match(JSONParserNULL)
 	}
 
