@@ -270,13 +270,13 @@ public class JSONParser extends Parser {
 	}
 
 	public static class MembersContext extends ParserRuleContext {
-		public List<MemberContext> member() {
-			return getRuleContexts(MemberContext.class);
-		}
-		public MemberContext member(int i) {
-			return getRuleContext(MemberContext.class,i);
+		public MemberContext member() {
+			return getRuleContext(MemberContext.class,0);
 		}
 		public TerminalNode COMMA() { return getToken(JSONParser.COMMA, 0); }
+		public MembersContext members() {
+			return getRuleContext(MembersContext.class,0);
+		}
 		public MembersContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -305,7 +305,7 @@ public class JSONParser extends Parser {
 				setState(42);
 				match(COMMA);
 				setState(43);
-				member();
+				members();
 				}
 				break;
 			}
@@ -413,13 +413,13 @@ public class JSONParser extends Parser {
 	}
 
 	public static class ElementsContext extends ParserRuleContext {
-		public List<ValueContext> value() {
-			return getRuleContexts(ValueContext.class);
-		}
-		public ValueContext value(int i) {
-			return getRuleContext(ValueContext.class,i);
+		public ValueContext value() {
+			return getRuleContext(ValueContext.class,0);
 		}
 		public TerminalNode COMMA() { return getToken(JSONParser.COMMA, 0); }
+		public ElementsContext elements() {
+			return getRuleContext(ElementsContext.class,0);
+		}
 		public ElementsContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -448,7 +448,7 @@ public class JSONParser extends Parser {
 				setState(61);
 				match(COMMA);
 				setState(62);
-				value();
+				elements();
 				}
 				break;
 			}
@@ -603,10 +603,10 @@ public class JSONParser extends Parser {
 		"\24\13\2\37!\5\26\f\2 \32\3\2\2\2 \33\3\2\2\2 \34\3\2\2\2 \35\3\2\2\2"+
 		" \36\3\2\2\2 \37\3\2\2\2!\5\3\2\2\2\"#\7\3\2\2#)\7\4\2\2$%\7\3\2\2%&\5"+
 		"\b\5\2&\'\7\4\2\2\')\3\2\2\2(\"\3\2\2\2($\3\2\2\2)\7\3\2\2\2*\60\5\n\6"+
-		"\2+,\5\n\6\2,-\7\7\2\2-.\5\n\6\2.\60\3\2\2\2/*\3\2\2\2/+\3\2\2\2\60\t"+
+		"\2+,\5\n\6\2,-\7\7\2\2-.\5\b\5\2.\60\3\2\2\2/*\3\2\2\2/+\3\2\2\2\60\t"+
 		"\3\2\2\2\61\62\5\20\t\2\62\63\7\b\2\2\63\64\5\4\3\2\64\13\3\2\2\2\65\66"+
 		"\7\5\2\2\66<\7\6\2\2\678\7\5\2\289\5\16\b\29:\7\6\2\2:<\3\2\2\2;\65\3"+
-		"\2\2\2;\67\3\2\2\2<\r\3\2\2\2=C\5\4\3\2>?\5\4\3\2?@\7\7\2\2@A\5\4\3\2"+
+		"\2\2\2;\67\3\2\2\2<\r\3\2\2\2=C\5\4\3\2>?\5\4\3\2?@\7\7\2\2@A\5\16\b\2"+
 		"AC\3\2\2\2B=\3\2\2\2B>\3\2\2\2C\17\3\2\2\2DE\7\16\2\2E\21\3\2\2\2FG\7"+
 		"\17\2\2G\23\3\2\2\2HI\t\2\2\2I\25\3\2\2\2JK\7\13\2\2K\27\3\2\2\2\7 (/"+
 		";B";

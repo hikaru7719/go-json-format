@@ -1,6 +1,4 @@
 {
-  "test": "1",
-  "hoge": {
-    "fuga": "2"
-  }
+  "true": true,
+  "false": false
 }

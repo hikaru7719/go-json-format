@@ -96,19 +96,21 @@ func (visitor *TreeVisitor) VisitObject(ctx *parser.ObjectContext) interface{} {
 }
 
 func (visitor *TreeVisitor) VisitMembers(ctx *parser.MembersContext) interface{} {
-	last := len(ctx.AllMember()) - 1
-	for i, m := range ctx.AllMember() {
-		m.Accept(visitor)
-		if i < last {
-			visitor.builer.WriteString(ctx.COMMA().GetText())
-		}
+	visitor.builer.WriteString(fmt.Sprintf("%s", visitor.PrintIndent()))
+	ctx.Member().Accept(visitor)
+
+	if ctx.COMMA() == nil {
 		visitor.builer.WriteString("\n")
+		return nil
 	}
+	visitor.builer.WriteString(ctx.COMMA().GetText())
+	visitor.builer.WriteString("\n")
+
+	ctx.Members().Accept(visitor)
 	return nil
 }
 
 func (visitor *TreeVisitor) VisitMember(ctx *parser.MemberContext) interface{} {
-	visitor.builer.WriteString(fmt.Sprintf("%s", visitor.PrintIndent()))
 	ctx.Str().Accept(visitor)
 	visitor.builer.WriteString(fmt.Sprintf("%s ", ctx.COLORN().GetText()))
 	ctx.Value().Accept(visitor)
@@ -116,17 +118,28 @@ func (visitor *TreeVisitor) VisitMember(ctx *parser.MemberContext) interface{} {
 }
 
 func (visitor *TreeVisitor) VisitArray(ctx *parser.ArrayContext) interface{} {
+	visitor.builer.WriteString(fmt.Sprintf("%s\n", ctx.LEFT_SQUARE_BRACKET().GetText()))
 	visitor.IncrementDepth()
-	defer visitor.DecrementDepth()
 
 	ctx.Elements().Accept(visitor)
+
+	visitor.DecrementDepth()
+	visitor.builer.WriteString(fmt.Sprintf("%s%s", visitor.PrintIndent(), ctx.RIGHT_SQUARE_BRACKET().GetText()))
 	return nil
 }
 
 func (visitor *TreeVisitor) VisitElements(ctx *parser.ElementsContext) interface{} {
-	for _, v := range ctx.AllValue() {
-		v.Accept(visitor)
+	visitor.builer.WriteString(fmt.Sprintf("%s", visitor.PrintIndent()))
+	ctx.Value().Accept(visitor)
+
+	if ctx.COMMA() == nil {
+		visitor.builer.WriteString("\n")
+		return nil
 	}
+	visitor.builer.WriteString(ctx.COMMA().GetText())
+	visitor.builer.WriteString("\n")
+
+	ctx.Elements().Accept(visitor)
 	return nil
 }
 
@@ -140,12 +153,12 @@ func (visitor *TreeVisitor) VisitNum(ctx *parser.NumContext) interface{} {
 	return nil
 }
 
-func (visitor *TreeVisitor) VisitBoolean(ctx *parser.BoolContext) interface{} {
+func (visitor *TreeVisitor) VisitBool(ctx *parser.BoolContext) interface{} {
 	visitor.builer.WriteString(ctx.GetText())
 	return nil
 }
 
-func (visitor *TreeVisitor) VisitNull(ctx *parser.NilContext) interface{} {
+func (visitor *TreeVisitor) VisitNil(ctx *parser.NilContext) interface{} {
 	visitor.builer.WriteString(ctx.GetText())
 	return nil
 }

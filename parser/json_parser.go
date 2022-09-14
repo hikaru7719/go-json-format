@@ -64,13 +64,13 @@ func jsonParserInit() {
 		32, 33, 5, 1, 0, 0, 33, 39, 5, 2, 0, 0, 34, 35, 5, 1, 0, 0, 35, 36, 3,
 		6, 3, 0, 36, 37, 5, 2, 0, 0, 37, 39, 1, 0, 0, 0, 38, 32, 1, 0, 0, 0, 38,
 		34, 1, 0, 0, 0, 39, 5, 1, 0, 0, 0, 40, 46, 3, 8, 4, 0, 41, 42, 3, 8, 4,
-		0, 42, 43, 5, 5, 0, 0, 43, 44, 3, 8, 4, 0, 44, 46, 1, 0, 0, 0, 45, 40,
+		0, 42, 43, 5, 5, 0, 0, 43, 44, 3, 6, 3, 0, 44, 46, 1, 0, 0, 0, 45, 40,
 		1, 0, 0, 0, 45, 41, 1, 0, 0, 0, 46, 7, 1, 0, 0, 0, 47, 48, 3, 14, 7, 0,
 		48, 49, 5, 6, 0, 0, 49, 50, 3, 2, 1, 0, 50, 9, 1, 0, 0, 0, 51, 52, 5, 3,
 		0, 0, 52, 58, 5, 4, 0, 0, 53, 54, 5, 3, 0, 0, 54, 55, 3, 12, 6, 0, 55,
 		56, 5, 4, 0, 0, 56, 58, 1, 0, 0, 0, 57, 51, 1, 0, 0, 0, 57, 53, 1, 0, 0,
 		0, 58, 11, 1, 0, 0, 0, 59, 65, 3, 2, 1, 0, 60, 61, 3, 2, 1, 0, 61, 62,
-		5, 5, 0, 0, 62, 63, 3, 2, 1, 0, 63, 65, 1, 0, 0, 0, 64, 59, 1, 0, 0, 0,
+		5, 5, 0, 0, 62, 63, 3, 12, 6, 0, 63, 65, 1, 0, 0, 0, 64, 59, 1, 0, 0, 0,
 		64, 60, 1, 0, 0, 0, 65, 13, 1, 0, 0, 0, 66, 67, 5, 12, 0, 0, 67, 15, 1,
 		0, 0, 0, 68, 69, 5, 13, 0, 0, 69, 17, 1, 0, 0, 0, 70, 71, 7, 0, 0, 0, 71,
 		19, 1, 0, 0, 0, 72, 73, 5, 9, 0, 0, 73, 21, 1, 0, 0, 0, 5, 30, 38, 45,
@@ -650,37 +650,12 @@ func NewMembersContext(parser antlr.Parser, parent antlr.ParserRuleContext, invo
 
 func (s *MembersContext) GetParser() antlr.Parser { return s.parser }
 
-func (s *MembersContext) AllMember() []IMemberContext {
-	children := s.GetChildren()
-	len := 0
-	for _, ctx := range children {
-		if _, ok := ctx.(IMemberContext); ok {
-			len++
-		}
-	}
-
-	tst := make([]IMemberContext, len)
-	i := 0
-	for _, ctx := range children {
-		if t, ok := ctx.(IMemberContext); ok {
-			tst[i] = t.(IMemberContext)
-			i++
-		}
-	}
-
-	return tst
-}
-
-func (s *MembersContext) Member(i int) IMemberContext {
+func (s *MembersContext) Member() IMemberContext {
 	var t antlr.RuleContext
-	j := 0
 	for _, ctx := range s.GetChildren() {
 		if _, ok := ctx.(IMemberContext); ok {
-			if j == i {
-				t = ctx.(antlr.RuleContext)
-				break
-			}
-			j++
+			t = ctx.(antlr.RuleContext)
+			break
 		}
 	}
 
@@ -693,6 +668,22 @@ func (s *MembersContext) Member(i int) IMemberContext {
 
 func (s *MembersContext) COMMA() antlr.TerminalNode {
 	return s.GetToken(JSONParserCOMMA, 0)
+}
+
+func (s *MembersContext) Members() IMembersContext {
+	var t antlr.RuleContext
+	for _, ctx := range s.GetChildren() {
+		if _, ok := ctx.(IMembersContext); ok {
+			t = ctx.(antlr.RuleContext)
+			break
+		}
+	}
+
+	if t == nil {
+		return nil
+	}
+
+	return t.(IMembersContext)
 }
 
 func (s *MembersContext) GetRuleContext() antlr.RuleContext {
@@ -758,7 +749,7 @@ func (p *JSONParser) Members() (localctx IMembersContext) {
 		}
 		{
 			p.SetState(43)
-			p.Member()
+			p.Members()
 		}
 
 	}
@@ -1073,37 +1064,12 @@ func NewElementsContext(parser antlr.Parser, parent antlr.ParserRuleContext, inv
 
 func (s *ElementsContext) GetParser() antlr.Parser { return s.parser }
 
-func (s *ElementsContext) AllValue() []IValueContext {
-	children := s.GetChildren()
-	len := 0
-	for _, ctx := range children {
-		if _, ok := ctx.(IValueContext); ok {
-			len++
-		}
-	}
-
-	tst := make([]IValueContext, len)
-	i := 0
-	for _, ctx := range children {
-		if t, ok := ctx.(IValueContext); ok {
-			tst[i] = t.(IValueContext)
-			i++
-		}
-	}
-
-	return tst
-}
-
-func (s *ElementsContext) Value(i int) IValueContext {
+func (s *ElementsContext) Value() IValueContext {
 	var t antlr.RuleContext
-	j := 0
 	for _, ctx := range s.GetChildren() {
 		if _, ok := ctx.(IValueContext); ok {
-			if j == i {
-				t = ctx.(antlr.RuleContext)
-				break
-			}
-			j++
+			t = ctx.(antlr.RuleContext)
+			break
 		}
 	}
 
@@ -1116,6 +1082,22 @@ func (s *ElementsContext) Value(i int) IValueContext {
 
 func (s *ElementsContext) COMMA() antlr.TerminalNode {
 	return s.GetToken(JSONParserCOMMA, 0)
+}
+
+func (s *ElementsContext) Elements() IElementsContext {
+	var t antlr.RuleContext
+	for _, ctx := range s.GetChildren() {
+		if _, ok := ctx.(IElementsContext); ok {
+			t = ctx.(antlr.RuleContext)
+			break
+		}
+	}
+
+	if t == nil {
+		return nil
+	}
+
+	return t.(IElementsContext)
 }
 
 func (s *ElementsContext) GetRuleContext() antlr.RuleContext {
@@ -1181,7 +1163,7 @@ func (p *JSONParser) Elements() (localctx IElementsContext) {
 		}
 		{
 			p.SetState(62)
-			p.Value()
+			p.Elements()
 		}
 
 	}

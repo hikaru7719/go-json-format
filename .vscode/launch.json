@@ -5,7 +5,7 @@
             "name": "JSON sample",
             "type": "antlr-debug",
             "request": "launch",
-            "input": "test.json",
+            "input": "test4.json",
             "grammar": "parser/JSON.g4",
             "printParseTree": true,
             "visualParseTree": true
