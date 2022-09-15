@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"io"
 	"os"
 
 	"github.com/antlr/antlr4/runtime/Go/antlr/v4"
@@ -9,9 +10,10 @@ import (
 )
 
 func main() {
-	b, err := os.ReadFile("test.json")
+	b, err := io.ReadAll(os.Stdin)
 	if err != nil {
-		panic(err)
+		fmt.Println(err)
+		os.Exit(1)
 	}
 	lexer := parser.NewJSONLexer(antlr.NewInputStream(string(b)))
 	stream := antlr.NewCommonTokenStream(lexer, 0)
