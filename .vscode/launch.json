@@ -5,6 +5,33 @@
             "name": "JSON sample",
             "type": "antlr-debug",
             "request": "launch",
+            "input": "test.json",
+            "grammar": "parser/JSON.g4",
+            "printParseTree": true,
+            "visualParseTree": true
+        },
+        {
+            "name": "JSON sample",
+            "type": "antlr-debug",
+            "request": "launch",
+            "input": "test2.json",
+            "grammar": "parser/JSON.g4",
+            "printParseTree": true,
+            "visualParseTree": true
+        },
+        {
+            "name": "JSON sample",
+            "type": "antlr-debug",
+            "request": "launch",
+            "input": "test3.json",
+            "grammar": "parser/JSON.g4",
+            "printParseTree": true,
+            "visualParseTree": true
+        },
+        {
+            "name": "JSON sample",
+            "type": "antlr-debug",
+            "request": "launch",
             "input": "test4.json",
             "grammar": "parser/JSON.g4",
             "printParseTree": true,
